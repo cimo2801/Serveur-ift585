@@ -24,17 +24,18 @@ public class ClientUDP
                 Console.WriteLine("Waiting for connection request..");
                 byte[] bytes = listener.Receive(ref groupEP);
                 IPAddress clientIPAddress = groupEP.Address;
+		int clientPortNum = groupEP.Port;
 
                 Console.WriteLine($"Received connection request from {groupEP} :");
                 Console.WriteLine($" {Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
 
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
 
                 byte[] sendbuf = Encoding.ASCII.GetBytes("adffasf1n18dffd0fs");
-                IPEndPoint ep = new IPEndPoint(clientIPAddress, sendPort);
+                IPEndPoint ep = new IPEndPoint(clientIPAddress, clientPortNum);
                 s.SendTo(sendbuf, ep);
 
-                Console.WriteLine("Token sent to the client address");
+                Console.WriteLine("Token sent to the client at {groupEP}");
 
                 bytes = listener.Receive(ref groupEP);
                 Console.WriteLine($"Received hash password from {groupEP} :");
