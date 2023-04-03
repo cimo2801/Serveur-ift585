@@ -21,26 +21,32 @@ public class ClientUDP
         {
             while (true)
             {
+                // Attend une demande de connexion
                 Console.WriteLine("Waiting for connection request..");
                 byte[] bytes = listener.Receive(ref groupEP);
-                IPAddress clientIPAddress = groupEP.Address;
-		int clientPortNum = groupEP.Port;
 
                 Console.WriteLine($"Received connection request from {groupEP} :");
                 Console.WriteLine($" {Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
 
                 Thread.Sleep(1000);
 
+                // Prendre les informations du client
+                IPAddress clientIPAddress = groupEP.Address;
+		        int clientPortNum = groupEP.Port;
+
+                // Envoyer un token bidon au client
                 byte[] sendbuf = Encoding.ASCII.GetBytes("adffasf1n18dffd0fs");
                 IPEndPoint ep = new IPEndPoint(clientIPAddress, clientPortNum);
                 s.SendTo(sendbuf, ep);
 
-                Console.WriteLine("Token sent to the client at {groupEP}");
+                Console.WriteLine($"Token sent to the client at {groupEP}");
 
+                // Attendre le mot de passe haché du client
                 bytes = listener.Receive(ref groupEP);
                 Console.WriteLine($"Received hash password from {groupEP} :");
                 Console.WriteLine($" {Encoding.ASCII.GetString(bytes, 0, bytes.Length)}");
 
+                // Envoyer un message bidon de connexion réussi
                 sendbuf = Encoding.ASCII.GetBytes("Connection success");
                 s.SendTo(sendbuf, ep);
             }
