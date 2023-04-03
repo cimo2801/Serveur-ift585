@@ -9,7 +9,7 @@ namespace WebApplication2.ClientUDP;
 public class ClientUDP
 {
     private const int listenPort = 6969;
-    private const int sendPort = 6924;
+    //private const int sendPort = 6924;
 
     private static void StartListener()
     {
@@ -36,11 +36,11 @@ public class ClientUDP
 
                 // Envoyer un token bidon au client
                 byte[] sendbuf = Encoding.ASCII.GetBytes("adffasf1n18dffd0fs");
-                IPEndPoint ep = new IPEndPoint(clientIPAddress, sendPort);
-                //IPEndPoint ep = new IPEndPoint(clientIPAddress, clientPortNum);
+                IPEndPoint ep = new IPEndPoint(clientIPAddress, clientPortNum);
                 s.SendTo(sendbuf, ep);
 
-                Console.WriteLine($"Token sent to the client at {groupEP.Address}:{sendPort}");
+                //Console.WriteLine($"Token sent to the client at {groupEP.Address}:{sendPort}");
+                Console.WriteLine($"Token sent to the client at {clientIPAddress}:{clientPortNum}");
 
                 // Attendre le mot de passe haché du client
                 bytes = listener.Receive(ref groupEP);
