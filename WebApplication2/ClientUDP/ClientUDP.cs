@@ -37,9 +37,10 @@ public class ClientUDP
                 // Envoyer un token bidon au client
                 byte[] sendbuf = Encoding.ASCII.GetBytes("adffasf1n18dffd0fs");
                 IPEndPoint ep = new IPEndPoint(clientIPAddress, sendPort);
+                //IPEndPoint ep = new IPEndPoint(clientIPAddress, clientPortNum);
                 s.SendTo(sendbuf, ep);
 
-                Console.WriteLine($"=Token sent to the client at {groupEP}");
+                Console.WriteLine($"Token sent to the client at {groupEP.Address}:{sendPort}");
 
                 // Attendre le mot de passe haché du client
                 bytes = listener.Receive(ref groupEP);
