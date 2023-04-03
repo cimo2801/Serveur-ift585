@@ -9,7 +9,7 @@ namespace WebApplication2.ClientUDP;
 public class ClientUDP
 {
     private const int listenPort = 6969;
-    private const int sendPort = 80;
+    private const int sendPort = 6924;
 
     private static void StartListener()
     {
